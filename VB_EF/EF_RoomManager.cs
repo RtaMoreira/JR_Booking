@@ -11,19 +11,29 @@ namespace VB_EF
         static VB_ModelContainer context = new VB_ModelContainer();
 
         //Get all rooms
-        public static String GetAllRooms()
+        public static List<Room> GetAllRooms()
         {
-
             List<Room> allRooms = new List<Room>();
-            var q = from r in context.Rooms
-                    select r;
-
-            Room test = q.FirstOrDefault();
-
-            allRooms.Add(test);
+            var q = from room in context.Rooms
+                    select room;
 
 
-            return Convert.ToString(allRooms.Count());
+            foreach(Room r in q)
+            {
+                allRooms.Add(r);
+            }
+            
+            return allRooms;
+        }
+
+        public static Room GetRoom(int id)
+        {
+            var q = from room in context.Rooms
+                    where room.IdRoom == id
+                    select room;
+            var r = q.FirstOrDefault();
+
+            return r;
         }
     }
 }

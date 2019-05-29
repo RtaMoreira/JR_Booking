@@ -18,6 +18,7 @@ namespace VB_EF
         public VB_ModelContainer()
             : base("name=VB_ModelContainer")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

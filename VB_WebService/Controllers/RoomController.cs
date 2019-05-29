@@ -5,13 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using VB_EF;
+using System.Data.Entity;
 
 namespace VB_WebService.Controllers
 {
     [RoutePrefix("api")]
     public class RoomController : ApiController
     {
-        private static readonly HttpClient Httpclient;
+        static VB_ModelContainer context = new VB_ModelContainer();
 
         [Route("rooms")]
         [HttpGet]
@@ -19,5 +20,18 @@ namespace VB_WebService.Controllers
         {
             return Ok(EF_RoomManager.GetAllRooms());
         }
+
+        [Route("room/{id:int}")]
+        public IHttpActionResult GetRoom(int id)
+        {
+            var q = from room in context.Rooms.Include("Pictures")
+                    where room.IdRoom == id
+                    select room;
+            
+            Room r = q.FirstOrDefault((p) => p.IdRoom == id);
+            return Ok(r);
+        }
     }
+
+   
 }

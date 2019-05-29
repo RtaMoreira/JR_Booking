@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -109,6 +109,7 @@
       <LastGenOutput>VB_Model.Context.cs</LastGenOutput>
       <DependentUpon>VB_Model.edmx</DependentUpon>
     </Content>
+    <Content Include="VB_Model.edmx.sql" />
     <Content Include="VB_Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>VB_Model.cs</LastGenOutput>
@@ -134,7 +135,9 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="VB_Model.edmx.diagram">
       <DependentUpon>VB_Model.edmx</DependentUpon>

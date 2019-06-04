@@ -12,16 +12,6 @@ namespace ConsoleAppForTest
         static void Main(string[] args)
         {
              VB_ModelContainer context = new VB_ModelContainer();
-
-            var q = from r in context.Rooms
-                    select r;
-
-            foreach (Room room in q)
-            {
-                Console.WriteLine(room.IdRoom + " : " + room.Description);
-
-            }
-
             Console.ReadKey();
         }
     }

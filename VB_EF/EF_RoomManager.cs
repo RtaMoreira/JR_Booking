@@ -10,6 +10,7 @@ namespace VB_EF
     {
         static VB_ModelContainer context = new VB_ModelContainer();
 
+        /*
         //Get all rooms
         public static List<Room> GetAllRooms()
         {
@@ -35,5 +36,7 @@ namespace VB_EF
 
             return r;
         }
+
+    */
     }
 }

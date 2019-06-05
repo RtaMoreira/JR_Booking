@@ -28,19 +28,8 @@ namespace VB_WebService.Controllers
 */
         [Route("add")]
         [HttpPost]
-        public IHttpActionResult AddReservation([FromBody] ReservationVM re)
+        public IHttpActionResult AddReservation([FromBody] Reservation r)
         {
-            Reservation r = new Reservation();
-            r.Firstname = re.firstname;
-            r.Lastname = re.lastname;
-            r.CheckIn = re.checkIn;
-            r.CheckOut = re.checkOut;
-            r.numberOfGuest = re.numberGuest;
-            r.FinalPrice = re.finalPrice;
-            foreach(int i in re.roomSelected)
-            {
-                r.Rooms.Add(context.Rooms.Find(i));
-            }
             context.Reservations.Add(r);
             context.SaveChanges();
             return Ok("hello");
@@ -65,7 +54,7 @@ namespace VB_WebService.Controllers
             }
             else
                 return Ok(0);
-           }
+        }
 
         ///reservation/show/joao/silva/2020-01-01
         [Route("show/{firstname}/{lastname}/{checkin:DateTime}")]

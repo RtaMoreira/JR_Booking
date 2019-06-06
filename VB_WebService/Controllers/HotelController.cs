@@ -8,24 +8,22 @@ using VB_EF;
 
 namespace VB_WebService.Controllers
 {
-    [RoutePrefix("api")]
+    [RoutePrefix("hotels")]
     public class HotelController : ApiController
     {
         static VB_ModelContainer context = new VB_ModelContainer();
 
-        [Route("hotel/{id:int}")]
+        [Route("{id:int}")]
         public IHttpActionResult GetHotel(int id)
         {
             var q = from hotel in context.Hotels
                     where hotel.IdHotel == id
                     select hotel;
 
-           // Hotel h = q.FirstOrDefault((p) => p.IdHotel == id);
-
             return Ok(q);
         }
 
-        [Route("hotel/locations")]
+        [Route("locations")]
         public IHttpActionResult GetAllLocations()
         {
             var q = context.Hotels.Select(h => h.Location).Distinct();
@@ -33,23 +31,27 @@ namespace VB_WebService.Controllers
             return Ok(q);
         }
 
+        public static List<int> GetAllHotels()
+        {
+            var q = from h in context.Hotels
+                    select h.IdHotel;
+
+            return q.ToList();
+        }
+
 
         public static bool HasReached70(int idHotel, DateTime day)
         {
-            //DateTime day = new DateTime(2019,05,02);
 
             //number of rooms for this hotel
             var q = from hotel in context.Hotels
                     where hotel.IdHotel == idHotel 
-                    select hotel.Rooms.ToList();
+                    select hotel.Rooms.ToList().Count();
 
-            double nbRoomsOfHotel =  Convert.ToDouble(q.Count());
-
-
+            double nbRoomsOfHotel =  Convert.ToDouble(q);
 
 
             //number of booked rooms
-            double nbUnavailableRooms = 0;
 
 
             //get booked room for this day
@@ -57,7 +59,8 @@ namespace VB_WebService.Controllers
                       where day >= r.CheckIn && day <= r.CheckOut
                       select r;
 
-            //keep only booked for this hotel
+            //count number of booked rooms for the hotel
+            double nbUnavailableRooms = 0;
             foreach (Reservation re in q2.ToList())
             {
                 foreach(Room r in re.Rooms)
@@ -71,11 +74,11 @@ namespace VB_WebService.Controllers
 
             if (capacity >= 0.7)
             {
-                return Ok(true);
+                return true;
             }
             else
             {
-                return Ok(false);
+                return false;
             }
 
         }

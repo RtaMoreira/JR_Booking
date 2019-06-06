@@ -65,8 +65,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="EF_RoomManager.cs" />
     <Compile Include="Hotel.cs">
       <DependentUpon>VB_Model.tt</DependentUpon>
     </Compile>

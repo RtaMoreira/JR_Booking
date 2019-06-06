@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using VB_EF;
-using VB_WebService.Models;
 using System.Data.SqlClient;
 
 namespace VB_WebService.Controllers
@@ -32,8 +31,10 @@ namespace VB_WebService.Controllers
         {
             context.Reservations.Add(r);
             context.SaveChanges();
-            return Ok("hello");
+            return Ok();
         }
+
+
         ///reservation/delete/4/joao/silva
         [Route("delete/{idReservation:int}/{firstname}/{lastname}")]
         [HttpDelete]

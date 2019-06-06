@@ -48,7 +48,7 @@ namespace VB_WebService.Controllers
                     where hotel.IdHotel == idHotel 
                     select hotel.Rooms.ToList().Count();
 
-            double nbRoomsOfHotel =  Convert.ToDouble(q);
+            double nbRoomsOfHotel =  Convert.ToDouble(q.FirstOrDefault());
 
 
             //number of booked rooms

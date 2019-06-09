@@ -19,8 +19,9 @@ namespace VB_WebService.Controllers
             var q = from hotel in context.Hotels
                     where hotel.IdHotel == id
                     select hotel;
-
-            return Ok(q);
+            Hotel h = q.FirstOrDefault();
+            h.Capacity = 4;
+            return Ok(h);
         }
 
         [Route("locations")]

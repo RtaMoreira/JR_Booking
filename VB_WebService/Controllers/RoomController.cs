@@ -28,7 +28,7 @@ namespace VB_WebService.Controllers
         }
 
         ///rooms/available/2020-01-01/2020-01-03/sion
-        [Route("available/{checkin:DateTime}/{checkOut:DateTime}/{location}")]
+        [Route("available/{checkin:DateTime}/{checkout:DateTime}/{location}")]
         [HttpGet]
         public IHttpActionResult SearchAvailableRooms(DateTime checkin, DateTime checkout, String location)
         {

@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using VB_EF;
-using VB_WebService.Models;
 using System.Data.SqlClient;
 
 namespace VB_WebService.Controllers

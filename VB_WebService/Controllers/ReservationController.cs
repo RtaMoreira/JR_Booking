@@ -29,7 +29,6 @@ namespace VB_WebService.Controllers
         [HttpPost]
         public IHttpActionResult AddReservation([FromBody] Reservation r)
         {
-            List<Room> roomForBLL = new List<Room>();
 
             foreach (Room room in r.Rooms)
             { 
@@ -37,7 +36,7 @@ namespace VB_WebService.Controllers
                 //Control if rooms not already taken during the process
                 if (RoomController.verifyRoomStillAvailable(room.IdRoom, r.CheckIn, r.CheckOut) == false)
                 {
-                    return Ok("Une de vos chambres n'est plus disponibles");
+                    return Ok("Une de vos chambres n'est plus disponible");
                 }
             }
 

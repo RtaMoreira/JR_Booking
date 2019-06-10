@@ -50,7 +50,7 @@ namespace VB_WebService.Controllers
                 }
             }
 
-            var qr = from room in context.Rooms.Include("Hotels")
+            var qr = from room in context.Rooms.Include("Hotels").Include("Pictures")
                      where (room.Hotels.Location.Equals(location)) && (!bookedRooms.Contains(room.IdRoom))
                      select room;
 
@@ -96,7 +96,7 @@ namespace VB_WebService.Controllers
                 }
             }
 
-            var qr = from room in context.Rooms.Include("Hotels")
+            var qr = from room in context.Rooms.Include("Hotels").Include("Pictures")
                      where (room.Hotels.Location.Equals(location))
                      && (!bookedRooms.Contains(room.IdRoom))
                      && (room.HasTV == true || room.HasTV == HasTV)

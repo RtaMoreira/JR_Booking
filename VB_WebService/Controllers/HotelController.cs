@@ -19,8 +19,9 @@ namespace VB_WebService.Controllers
             var q = from hotel in context.Hotels
                     where hotel.IdHotel == id
                     select hotel;
-
-            return Ok(q);
+            Hotel h = q.FirstOrDefault();
+            h.Capacity = 4;
+            return Ok(h);
         }
 
         [Route("locations")]
@@ -48,7 +49,7 @@ namespace VB_WebService.Controllers
                     where hotel.IdHotel == idHotel 
                     select hotel.Rooms.ToList().Count();
 
-            double nbRoomsOfHotel =  Convert.ToDouble(q);
+            double nbRoomsOfHotel =  Convert.ToDouble(q.FirstOrDefault());
 
 
             //number of booked rooms

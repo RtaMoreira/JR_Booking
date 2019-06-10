@@ -12,7 +12,6 @@ namespace VB_WebService.Controllers
     [RoutePrefix("reservation")]
     public class ReservationController : ApiController
     {
-        static VB_ModelContainer context = new VB_ModelContainer();
 
 /*
 {
@@ -29,43 +28,15 @@ namespace VB_WebService.Controllers
         [HttpPost]
         public IHttpActionResult AddReservation([FromBody] Reservation r)
         {
-
-            foreach (Room room in r.Rooms)
-            { 
-
-                //Control if rooms not already taken during the process
-                if (RoomController.verifyRoomStillAvailable(room.IdRoom, r.CheckIn, r.CheckOut) == false)
-                {
-                    return Ok("Une de vos chambres n'est plus disponible");
-                }
-            }
-
-            context.Reservations.Add(r);
-            context.SaveChanges();
-            return Ok();
+            return Ok(ReservationDB.AddReservation(r));
         }
-
 
         ///reservation/delete/4/joao/silva
         [Route("delete/{idReservation:int}/{firstname}/{lastname}")]
         [HttpDelete]
         public IHttpActionResult DeleteReservation(int idReservation, string firstname, string lastname)
         {
-            var q = from res in context.Reservations
-                    where res.IdReservation==idReservation
-                    && res.Firstname.Equals(firstname)
-                    && res.Lastname.Equals(lastname)
-                    select res;
-            
-            if (q.Count() > 0)
-            {
-                context.Database.ExecuteSqlCommand("DELETE FROM ReservationRoom WHERE Reservations_IdReservation = @id", new SqlParameter("@id", idReservation));
-                context.Database.ExecuteSqlCommand("DELETE FROM Reservations WHERE IdReservation = @id AND Firstname = @Firstname AND Lastname = @Lastname", new SqlParameter("@id", idReservation), new SqlParameter("@Firstname", firstname),new SqlParameter("@Lastname", lastname));
-                context.SaveChanges();
-                return Ok(1);
-            }
-            else
-                return Ok(0);
+            return Ok(ReservationDB.DeleteReservation(idReservation, firstname, lastname));
         }
 
         ///reservation/show/joao/silva/2020-01-01
@@ -73,13 +44,7 @@ namespace VB_WebService.Controllers
         [HttpGet]
         public IHttpActionResult GetReservationWithFirstname(string firstname, string lastname, DateTime checkIn)
         {
-            var q = from res in context.Reservations
-                    where res.Firstname.Equals(firstname)
-                    && res.Lastname.Equals(lastname)
-                    && res.CheckIn == checkIn
-                    select res;
-            Reservation r = q.FirstOrDefault();
-            return Ok(r);
+            return Ok(ReservationDB.GetReservationWithFirstname(firstname, lastname, checkIn));
         }
     }
 }

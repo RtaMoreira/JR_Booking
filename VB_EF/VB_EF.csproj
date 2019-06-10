@@ -68,6 +68,7 @@
     <Compile Include="Hotel.cs">
       <DependentUpon>VB_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="HotelDB.cs" />
     <Compile Include="Picture.cs">
       <DependentUpon>VB_Model.tt</DependentUpon>
     </Compile>
@@ -75,9 +76,11 @@
     <Compile Include="Reservation.cs">
       <DependentUpon>VB_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ReservationDB.cs" />
     <Compile Include="Room.cs">
       <DependentUpon>VB_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="RoomDB.cs" />
     <Compile Include="VB_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

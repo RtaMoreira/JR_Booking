@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VB_EF
 {
@@ -70,6 +65,7 @@ namespace VB_EF
                     where res.Firstname.Equals(firstname)
                     && res.Lastname.Equals(lastname)
                     && res.CheckIn == checkIn
+                    orderby res.IdReservation descending
                     select res;
             Reservation r = q.FirstOrDefault();
             return r;

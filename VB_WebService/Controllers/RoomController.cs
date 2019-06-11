@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using VB_EF;
-using System.Data.Entity;
-using System.Data.SqlClient;
 
 namespace VB_WebService.Controllers
 {
@@ -19,7 +13,7 @@ namespace VB_WebService.Controllers
             return Ok(RoomDB.GetRoom(id));
         }
 
-        ///rooms/available/2020-01-01/2020-01-03/sion
+
         [Route("available/{checkin:DateTime}/{checkout:DateTime}/{location}")]
         [HttpGet]
         public IHttpActionResult SearchAvailableRooms(DateTime checkin, DateTime checkout, String location)
@@ -27,7 +21,7 @@ namespace VB_WebService.Controllers
             return Ok(RoomDB.SearchAvailableRooms(checkin,checkout,location));
         }
 
-        ///rooms/available/details/2020-01-01/2020-01-03/sion/true/false/2/2/true/false/120/130
+
         [Route("available/details/{checkin:DateTime}/{checkOut:DateTime}/{location}/{HasTV:bool}/{HasHairDryer:bool}/{minCategory:int}/{type:int}/{HasWifi:bool}/{HasParking:bool}/{minPrice:decimal}/{maxPrice:decimal}")]
         [HttpGet]
         public IHttpActionResult GetRoomsAvailableDetails(DateTime checkIn, DateTime checkOut, string location, bool HasTV, bool HasHairDryer,

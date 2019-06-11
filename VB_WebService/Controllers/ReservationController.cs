@@ -28,6 +28,17 @@ namespace VB_WebService.Controllers
         [HttpPost]
         public IHttpActionResult AddReservation([FromBody] Reservation r)
         {
+            //Reservation r = new Reservation
+            //{
+            //    Firstname = "test",
+            //    Lastname = "testing",
+            //    numberOfGuest = 2,
+            //    CheckIn = new DateTime(2020, 01, 04),
+            //    CheckOut = new DateTime(2020, 01, 06),
+            //    FinalPrice = 200
+            //};
+            //r.Rooms.Add(RoomDB.GetRoom(35));
+
             return Ok(ReservationDB.AddReservation(r));
         }
 

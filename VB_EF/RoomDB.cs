@@ -12,7 +12,7 @@ namespace VB_EF
 
         public static Room GetRoom(int id)
         {
-            var q = from room in context.Rooms.Include("Pictures")
+            var q = from room in context.Rooms.Include("Pictures").Include("Reservations")
                     where room.IdRoom == id
                     select room;
 
@@ -41,7 +41,7 @@ namespace VB_EF
                 }
             }
 
-            var qr = from room in context.Rooms.Include("Hotels").Include("Pictures")
+            var qr = from room in context.Rooms.Include("Hotels").Include("Pictures").AsNoTracking()
                      where (room.Hotels.Location.Equals(location)) && (!bookedRooms.Contains(room.IdRoom))
                      select room;
 
@@ -108,7 +108,7 @@ namespace VB_EF
                 }
             }
 
-            var qr = from room in context.Rooms.Include("Hotels").Include("Pictures")
+            var qr = from room in context.Rooms.Include("Hotels").Include("Pictures").AsNoTracking()
                      where (room.Hotels.Location.Equals(location))
                      && (!bookedRooms.Contains(room.IdRoom))
                      && (room.HasTV == true || room.HasTV == HasTV)

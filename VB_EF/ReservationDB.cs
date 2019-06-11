@@ -11,12 +11,10 @@ namespace VB_EF
     {
         static VB_ModelContainer context = new VB_ModelContainer();
 
-        public static String AddReservation(Reservation r)
+        public static string AddReservation(Reservation r)
         {
-
             foreach (Room room in r.Rooms)
             {
-
                 //Control if rooms not already taken during the process
                 if (RoomDB.verifyRoomStillAvailable(room.IdRoom, r.CheckIn, r.CheckOut) == false)
                 {
@@ -24,7 +22,23 @@ namespace VB_EF
                 }
             }
 
-            context.Reservations.Add(r);
+            context.Database.ExecuteSqlCommand("Insert into Reservations (Firstname, Lastname, numberOfGuest, CheckIn, CheckOut, FinalPrice)"
+                                        + " VALUES(@Firstname, @Lastname, @NumberGuest, @checkIn, @checkOut, @finalPrice) ",
+                                        new SqlParameter("@Firstname",r.Firstname),
+                                        new SqlParameter("@Lastname", r.Lastname),
+                                        new SqlParameter("@NumberGuest",r.numberOfGuest),
+                                        new SqlParameter("@checkIn",r.CheckIn),
+                                        new SqlParameter("@checkOut",r.CheckOut),
+                                        new SqlParameter("@finalPrice",r.FinalPrice));
+
+            r.IdReservation = ReservationDB.GetReservationWithFirstname(r.Firstname, r.Lastname, r.CheckIn).IdReservation;
+            foreach(Room ro in r.Rooms)
+            {
+                context.Database.ExecuteSqlCommand(" Insert into ReservationRoom (Rooms_IdRoom, Reservations_IdReservation) VALUES (@IdRoom, @IdReservation)",
+                                    new SqlParameter("@IdRoom", ro.IdRoom),
+                                    new SqlParameter("@IdReservation",r.IdReservation));
+            }
+            
             context.SaveChanges();
             return null;
         }

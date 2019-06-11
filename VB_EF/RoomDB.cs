@@ -69,6 +69,7 @@ namespace VB_EF
             var room = from r in context.Rooms
                        where r.IdRoom == idRoom
                        select r;
+
             decimal normalPrice = room.FirstOrDefault().Price;
 
             for (DateTime i = checkIn; i < checkOut; i = i.AddDays(1.0))

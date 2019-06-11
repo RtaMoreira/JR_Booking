@@ -36,7 +36,13 @@ namespace VB_WebService.Controllers
         [HttpDelete]
         public IHttpActionResult DeleteReservation(int idReservation, string firstname, string lastname)
         {
-            return Ok(ReservationDB.DeleteReservation(idReservation, firstname, lastname));
+            int value = ReservationDB.DeleteReservation(idReservation, firstname, lastname);
+
+            if (value == 1)
+                return Ok();
+            else
+                return StatusCode(HttpStatusCode.NoContent);
+
         }
 
         ///reservation/show/joao/silva/2020-01-01
@@ -46,5 +52,8 @@ namespace VB_WebService.Controllers
         {
             return Ok(ReservationDB.GetReservationWithFirstname(firstname, lastname, checkIn));
         }
+
+ 
+
     }
 }

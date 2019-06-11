@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +27,18 @@ namespace VB_EF
             }
 
             context.Reservations.Add(r);
+
+
+      /*      foreach (Room room in r.Rooms)
+            {
+                //get room from resa
+              // Room rdb =  context.Rooms.Include("Reservations").Where(x => x.IdRoom == room.IdRoom).FirstOrDefault();
+
+                rdb.Reservations.Add(r);
+
+            }
+*/
+
             context.SaveChanges();
             return null;
         }
